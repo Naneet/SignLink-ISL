@@ -1,5 +1,4 @@
 # SignLink-ISL
 
-This is work in progress :)
+# **SignLink-ISL: Video Dataset Pipeline**
 
-Dataset: https://www.kaggle.com/datasets/naneet1/include-dataset-subset
