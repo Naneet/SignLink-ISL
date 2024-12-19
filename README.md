@@ -25,3 +25,24 @@ root/
 │   ...
 
 ```
+
+## **Features**
+
+- **Efficient Preprocessing:** Automatically extracts and processes video frames into PyTorch tensors.
+- **User-Friendly:** No extra steps required. Simply organize your dataset as shown above, and you're good to go!
+- **Customizable:** Supports parameters like number of frames (`NUM_FRAMES`), frame rate (`fps`), resolution, and more.
+
+### **Requirements**
+---
+
+To run the notebook, ensure you have the following installed:
+
+- **Python** (3.7+)
+- **PyTorch**
+- **TorchVision**
+- **FFmpeg**
+- **Pillow (PIL)**
+- **OS utilities:** `os`, `shutil`, `subprocess`
+- **Visualization:** `matplotlib`
+
+
