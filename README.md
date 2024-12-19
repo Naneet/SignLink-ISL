@@ -1,7 +1,10 @@
 # SignLink-ISL
 
-This is a work-in-progress repo 🙂  
+This is a work-in-progress repo :)  
 New features will be added in the future, and things might be subject to change as we make progress on this project!
+
+### **Description**  
+**SignLink-ISL** is a project aimed at building a robust pipeline for **training models on Sign Language Recognition (SLR)**, specifically focusing on **Indian Sign Language (ISL)**. The goal is to preprocess video datasets efficiently and train machine learning models to recognize and classify ISL gestures accurately.
 
 ## **SignLink-ISL: Video Dataset Pipeline**
 
