@@ -1,13 +1,16 @@
 import torch
 class Trainer:
-    def train_step(model, optimizer, loss_fn, epoch, dataloader):
+    def __init__(self,device):
+        self.device = device
+
+    def train_step(self, model, optimizer, loss_fn, epoch, dataloader):
         model.train()
         train_loss, acc = 0, 0
         total_correct = 0
         total_samples = 0
 
         for X, y in dataloader:
-            X, y = X.to(device), y.to(device)
+            X, y = X.to(self.device), y.to(self.device)
 
             y_pred = model(X)
             loss = loss_fn(y_pred, y)
@@ -26,7 +29,7 @@ class Trainer:
         print(f"Epoch: {epoch} | Loss: {loss} | Accuracy: {acc:2f}")
 
 
-    def test_step(model, loss_fn, epoch, dataloader):
+    def test_step(self, model, loss_fn, epoch, dataloader):
         model.eval()
         test_loss, acc = 0, 0
         total_correct = 0
@@ -35,7 +38,7 @@ class Trainer:
 
         with torch.inference_mode():
             for X, y in dataloader:
-                X, y = X.to(device), y.to(device)
+                X, y = X.to(self.device), y.to(self.device)
                 
                 y_pred = model(X)
                 loss = loss_fn(y_pred, y)
