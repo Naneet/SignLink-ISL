@@ -119,7 +119,7 @@ class Trainer:
             del y
 
         acc = total_correct * 100 / total_samples
-        train_loss = train_loss / len(self.train_dataloader)
+        train_loss = train_loss / len(path_list)
         print(f"Epoch: {epoch} | Train Loss: {train_loss:.4f} | Accuracy: {acc:.2f}")
 
 
@@ -147,7 +147,7 @@ class Trainer:
                 total_samples += y.size(0)
 
             acc = total_correct * 100 / total_samples
-            test_loss = test_loss / len(self.test_dataloader)
+            test_loss = test_loss / len(path_list)
             print(f"Epoch: {epoch} | Test Loss: {test_loss:.4f} | Accuracy: {acc:.2f}")
             print("************************")
             
@@ -158,7 +158,7 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"resnet18_pretrained_acc={acc:.2f}_{epoch=}_real.pth")
+                }, filename=f"model={acc:.2f}_{epoch=}_real.pth")
         
     
         
