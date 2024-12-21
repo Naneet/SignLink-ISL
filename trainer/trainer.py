@@ -70,7 +70,6 @@ class Trainer:
             acc = total_correct * 100 / total_samples
             test_loss = test_loss / len(self.test_dataloader)
             print(f"Epoch: {epoch} | Test Loss: {test_loss:.4f} | Accuracy: {acc:.2f}")
-            print("************************")
             
             if self.save:
                 print(f"Saving model at epoch {epoch}...")
@@ -80,3 +79,4 @@ class Trainer:
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
                 }, filename=f"resnet18_pretrained_acc={acc:.2f}_{epoch=}_real.pth")
+            print("************************")
