@@ -1,4 +1,5 @@
 import os
+# Use this function to load the data path and label for the dataset
 def data_and_words(path):
     words = os.listdir(path)
     words_list = []
@@ -14,4 +15,6 @@ def data_and_words(path):
     for num, word in enumerate(words_list):
         words_dict[word] = num
 
-    return data, words_list, words_dict
+    return data, words_list, words_dict  # data will return a list of tuples where data[0] is the path to the video and data[1] is the label
+                                         # words_list can be used to convert index to word
+                                         # words_dict can be used to convert word to index
