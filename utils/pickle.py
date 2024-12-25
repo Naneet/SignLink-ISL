@@ -6,7 +6,6 @@ def pickle_data(path, dataloader):
             'video': X,
             'label': y
         }
-        
         torch.save(tensor_data, f'{path}\\tensor_{n}.pt')
 
 
@@ -19,3 +18,11 @@ def pickle_files_path_list(path) -> list:
         for nm in files:       
             path_list.append(os.path.join(top, nm))
     return path_list
+
+def preload_tensors(path_list, device):
+    data = []
+    for path in path_list:
+        tensor = torch.load(path)  # Load tensor from disk
+        video, label = tensor['video'].to(device), tensor['label'].to(device)
+        data.append((video, label))
+    return data

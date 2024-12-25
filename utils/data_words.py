@@ -1,6 +1,6 @@
 import os
-# Use this function to load the data path and label for the dataset
 def data_and_words(path):
+    """Use this function to load the data path and label for the dataset"""
     words = os.listdir(path)
     words_list = []
     data = []
