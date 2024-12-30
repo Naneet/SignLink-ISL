@@ -15,15 +15,11 @@ import os
 # tag : v5.2
 
 class VideoDataset(Dataset):
-    def __init__(self, data, temp_data_folder, NUM_FRAMES=10, transform_frame=None,transform_video=None, video_fps=25, resolution='1920:1080', flip_prob=30, resize=300, crop=640):
+    def __init__(self, data, temp_data_folder, NUM_FRAMES=10, transform_frame=None, video_fps=25, resolution='1920:1080', flip_prob=30, resize=300, crop=640):
         self.data = data  # It should be a list of tuples where data[0] is the path to the video and data[1] is the label
 
         self.transform_frame = transform_frame  # Transformations to be done on the individual frames.
                                                 # Recommended to use when transforms is required at frames level with some randomness, eg: Random Crop
-                                                # Note: If the Dataset is showing tensor issue, try adding `ToTensor()` in transform.
-
-        self.transform_video = transform_video  # Transformations to be done on the whole video.
-                                                # Recommended to use when transforms is required at video level with some randomness, eg: Random Horizontal Flip
 
         self.NUM_FRAMES = NUM_FRAMES  # Number of frames to be extracted from the video
 
@@ -45,7 +41,7 @@ class VideoDataset(Dataset):
         self.rescale = transforms.Resize((resize,resize))  # For reducing the resolution of the image after plotting the landmarks
         self.crop = transforms.CenterCrop((crop,crop))     # Recommended to do in this way otherwise the model have difficulty generalising the dataset
 
-    def landmark_to_list(self, landmarks):
+    def landmark_to_list(self, landmarks):  # converting mediapipe landmarks to python list
         x, y =[], []
         for landmark in landmarks:
             x.append(landmark.x)
@@ -53,7 +49,7 @@ class VideoDataset(Dataset):
         return x, y
 
 
-    def swap(self, left_thumb, right_thumb, hand):
+    def swap(self, left_thumb, right_thumb, hand):  # swapping hands side if it is assigned to wrong side
         left = (left_thumb[0]-hand[0])**2 + (left_thumb[1]-hand[1])**2
         right = (right_thumb[0]-hand[0])**2 + (right_thumb[1]-hand[1])**2
 
@@ -122,7 +118,7 @@ class VideoDataset(Dataset):
 
 
 
-    def interpolate(self, arr):
+    def interpolate(self, arr):  # interpolating missing landmarks
 
         arr_x = arr[:, :, 0]
         arr_x = pd.DataFrame(arr_x)
@@ -142,22 +138,6 @@ class VideoDataset(Dataset):
 
         result = np.stack((arr_x, arr_y), axis=-1)
         return result
-
-
-
-
-
-
-    def np_to_tensor(self, left_hand, right_hand, pose):
-        landmark_list = []
-        for n in range(self.NUM_FRAMES):
-            x = np.concatenate((left_hand[0][n], pose[0][n], right_hand[0][n]))
-            y = np.concatenate((left_hand[1][n], pose[1][n], right_hand[1][n]))
-            result = np.stack((x,y))
-            landmark_list.append(torch.from_numpy(result))
-        landmark_tensor = torch.stack(landmark_list)
-        landmark_tensor = landmark_tensor.clone().detach().to(torch.float32)
-        return landmark_tensor
 
 
     def align_hand_to_pose(self, hand_keypoints, wrist_pose, thumb_pose):
@@ -205,9 +185,7 @@ class VideoDataset(Dataset):
 
         return aligned_hand_keypoints
 
-
-
-
+    
 
     def plot_hand(self, hand, img):
         for coord in hand:
