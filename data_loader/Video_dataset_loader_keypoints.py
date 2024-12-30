@@ -7,15 +7,11 @@ import numpy as np
 # tag : v5.1
 
 class VideoDataset(Dataset):
-    def __init__(self, data, temp_data_folder, NUM_FRAMES=10, transform_frame=None,transform_video=None, video_fps=25, resolution='1920:1080'):
+    def __init__(self, data, temp_data_folder, NUM_FRAMES=10, transform_frame=None, video_fps=25, resolution='1920:1080'):
         self.data = data  # It should be a list of tuples where data[0] is the path to the video and data[1] is the label
 
         self.transform_frame = transform_frame  # Transformations to be done on the individual frames.
                                                 # Recommended to use when transforms is required at frames level with some randomness, eg: Random Crop
-                                                # Note: If the Dataset is showing tensor issue, try adding `ToTensor()` in transform.
-
-        self.transform_video = transform_video  # Transformations to be done on the whole video.
-                                                # Recommended to use when transforms is required at video level with some randomness, eg: Random Horizontal Flip
 
         self.NUM_FRAMES = NUM_FRAMES  # Number of frames to be extracted from the video
 
