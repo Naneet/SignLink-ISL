@@ -2,7 +2,7 @@ import torch
 from torch.amp import autocast, GradScaler
 
 class Trainer:
-    def __init__(self,model,device,optimizer,loss_fn, scheduler,train_path_list,test_path_list,save=False):
+    def __init__(self,model,device,optimizer,loss_fn,scheduler,train_path_list,test_path_list,save=False):
         self.device = device
         self.scaler = GradScaler(device)  # Initialize GradScaler
         self.optimizer = optimizer
