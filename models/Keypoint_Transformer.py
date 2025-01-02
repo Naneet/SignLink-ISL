@@ -3,8 +3,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class BUMBLEBEE(nn.Module):
-    def __init__(self, num_frames, keypoint_dim, num_classes, d_model=128, num_heads=4, num_layers=2, dropout=0.1):
+    def __init__(self, num_frames, keypoint_dim, num_classes, d_model=128, num_heads=4, num_layers=2, dropout=0.1, name='bumblebee'):
         super(BUMBLEBEE, self).__init__()
+
+        # model_name for save_checkpoint
+        self.name = name
 
         # Embedding layer to project input keypoints to d_model dimensions
         self.embedding = nn.Linear(2 * keypoint_dim, d_model)  # Input is (x, y) for each keypoint
