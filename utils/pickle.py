@@ -1,13 +1,22 @@
 import torch
+import os
 
-def pickle_data(path, dataloader):
+def pickle_data_path_lists(path, dataloader):
     for n, (X, y) in enumerate(dataloader):
         tensor_data = {
             'video': X,
             'label': y
         }
-        torch.save(tensor_data, f'{path}\\tensor_{n}.pt')
+        os.makedirs(path, exist_ok=True)
+        torch.save(tensor_data, os.path.join(path, f'tensor_{n}.pt'))
 
+def pickle_data(X, y, n, path):
+    tensor_data = {
+        'video': X,
+        'label': y
+    }
+    os.makedirs(path, exist_ok=True)
+    torch.save(tensor_data, os.path.join(path, f'tensor_{n}.pt'))
 
 def read_pickle(path) -> torch.tensor:
     return torch.load(path)
@@ -26,3 +35,4 @@ def preload_tensors(path_list, device):
         video, label = tensor['video'].to(device), tensor['label'].to(device)
         data.append((video, label))
     return data
+
