@@ -4,8 +4,11 @@ from torchvision import models
 
 # CNN Model
 class SignLanguageClassifier(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, num_classes, name='r3d'):
         super(SignLanguageClassifier, self).__init__()
+
+        # model_name for save_checkpoint
+        self.name = name
 
         # CNN (ResNet - 3D)
         self.cnn = models.video.r3d_18(pretrained=True)  # Pretrained 3D ResNet

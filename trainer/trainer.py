@@ -1,6 +1,6 @@
 import torch
 from torch.amp import autocast, GradScaler
-from utils.save_load import save_checkpoint
+from utils.save_load_model import save_checkpoint
 from utils.pickle import read_pickle
 
 class Trainer:
@@ -81,7 +81,7 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"resnet18_pretrained_acc={acc:.2f}_{epoch=}_real.pth")
+                }, filename=f"{self.model.name}_acc={acc:.2f}_{epoch=}_real.pth")
     
     def train_step_pickle(self,epoch,path_list):
         self.model.train()
@@ -96,7 +96,7 @@ class Trainer:
             y = tensor['label'].to(self.device)
 
             # Automatic Mixed Precision (AMP)
-            with autocast('cuda'):
+            with autocast(device_type='cuda', enabled=self.device.type == 'cuda'):
                 y_pred = self.model(X)
                 loss = self.loss_fn(y_pred, y)
                 train_loss += loss.item()
@@ -158,7 +158,7 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"model={acc:.2f}_{epoch=}_real.pth")
+                }, filename=f"{self.model.name}_model={acc:.2f}_{epoch=}_real.pth")
         
     
         

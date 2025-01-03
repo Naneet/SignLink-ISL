@@ -12,7 +12,7 @@ from PIL import Image
 import shutil
 
 from data_loader.VideoDatasetLoader import VideoDatasetLoader
-from model.Conv3D import SignLanguageClassifier
+from models.Conv3D import SignLanguageClassifier
 from trainer.trainer import Trainer
 from utils.save_load import save_checkpoint,load_checkpoint
 from utils.data_words import data_and_words
