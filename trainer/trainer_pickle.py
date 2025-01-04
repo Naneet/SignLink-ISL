@@ -89,7 +89,7 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"model={acc:.2f}_{epoch=}_real.pth")
+                }, filename=f"{self.model.name}_model={acc:.2f}_{epoch=}_real.pth")
         
     
         
