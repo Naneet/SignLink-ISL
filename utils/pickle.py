@@ -18,8 +18,12 @@ def pickle_data(X, y, n, path):
     os.makedirs(path, exist_ok=True)
     torch.save(tensor_data, os.path.join(path, f'tensor_{n}.pt'))
 
+# def read_pickle(path) -> torch.tensor:
+#     return torch.load(path)
+
 def read_pickle(path) -> torch.tensor:
-    return torch.load(path)
+    temp = torch.load(path)
+    return temp['video'], temp['label']
 
 def pickle_files_path_list(path) -> list:
     path_list = []
