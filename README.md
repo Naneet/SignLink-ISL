@@ -1,6 +1,6 @@
 # SignLink-ISL
 
-SignLink-ISL is a machine learning-based system designed to recognize and interpret Indian Sign Language (ISL) gestures, facilitating effective communication between the deaf community and others. This project aims to build a robust pipeline for Sign Language Recognition (SLR), with a specific focus on Indian Sign Language (ISL). The goal is to preprocess video datasets efficiently and train machine learning models to recognize and classify ISL gestures accurately.
+SignLink-ISL is a deep learning-based system designed to recognize and interpret Indian Sign Language (ISL) gestures, facilitating effective communication between the deaf community and others. This project aims to build a robust Sign Language Recognition (SLR) model, with a specific focus on Indian Sign Language (ISL). The goal is to preprocess video datasets efficiently and train machine learning models to recognize and classify ISL gestures accurately.
 
 ## Table of Contents
 
@@ -32,7 +32,7 @@ For the INCLUDE SUBSET 50 dataset, we randomly selected words from the larger IN
 We created two versions of the dataset loader:
 
  1. **Landmark-based Tensor Loader**: This version returns a tensor of hand landmarks, suitable for training transformer models. Using this, we achieved an accuracy of 54.55% on the INCLUDE SUBSET 50 (details in the repo). Tuning hyperparameters significantly improved performance, but one challenge with transformers is diagnosing performance bottlenecks. For example, adding interpolation to handle missing Mediapipe detections improved results, highlighting the importance of addressing dataset quality.
- 2. **Video Tensor Loader**: This version returns tensors of video frames, making it suitable for CNN-based models. This approach significantly improved performance, as discussed in the Model Performance section.
+ 2. **Video Tensor Loader**: This version returns tensors of video frames, making it suitable for CV-based models. This approach significantly improved performance, as discussed in the Model Performance section.
 
 #### Data Augmentation
 
@@ -58,7 +58,7 @@ We used these augmented datasets combined for final training models on both INCL
 
 We experimented with several models, and r3d_18 consistently performed well across all datasets. While we also explored combinations like ResNet + GRU/LSTM, we observed their potential as lightweight models but could not explore them further due to hardware limitations.
 
-Transformers were also used to explore their capabilities. While they showed promising results (54.55% accuracy on INCLUDE SUBSET 50), we realized that hyperparameter tuning plays a significant role in their performance. However, diagnosing issues with the data or model using transformers can be challenging. For instance, Mediapipe's inability to detect hands consistently prompted us to add interpolation, which improved results.
+Transformers were also used to explore their capabilities. While they showed promising results (54.55% accuracy on INCLUDE SUBSET 50), we realized that hyperparameter tuning plays a significant role in their performance. However, unlike traditional computer vision tasks where images can be directly visualized to diagnose issues, the inability to easily comprehend the dataset makes it challenging to identify data-related problems.
 
 ### Challenges Faced
 
@@ -155,6 +155,8 @@ To understand the flow of the project and replicate the results, follow the note
 [Sign language Recognition Using Machine Learning Algorithm](https://www.irjet.net/archives/V7/i3/IRJET-V7I3418.pdf)
 
 [PyTorch Documentation](https://pytorch.org/docs/stable/index.html)
+
+[Our version of dataset](/dataset/README.md)
 
 
 
