@@ -73,6 +73,8 @@ Transformers were also used to explore their capabilities. While they showed pro
 3. Enhanced Dataset: Using a more comprehensive dataset with both word-level and sentence-level videos could enable proper translation of sign language sentences into spoken language.
 4. Hyperparameter Tuning: Further tuning transformer hyperparameters could unlock better performance.
 
+## Model Performance
+
 
 
 
