@@ -1,6 +1,6 @@
 import torch
 from torch.amp import autocast, GradScaler
-from utils.save_load_model import save_checkpoint
+from utils.save_load import save_checkpoint
 from utils.pickle import read_pickle
 
 class Trainer:

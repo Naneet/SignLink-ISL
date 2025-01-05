@@ -74,8 +74,8 @@ model = SignLanguageClassifier(len(word_to_idx)).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 loss_fn = nn.CrossEntropyLoss()
 
-trainer = Trainer(device=device,optimizer=optimizer,loss_fn=loss_fn,test_dataloader=test_dataloader,train_dataloader=train_dataloader,save=True)
+trainer = Trainer(device=device,optimizer=optimizer,loss_fn=loss_fn,save=True,model=model)
 
 for epoch in range(epochs):
-    trainer.train_step(epoch=epoch)
-    trainer.test_step(epoch=epoch)
+    trainer.train_step(epoch=epoch,train_dataloader=train_dataloader)
+    trainer.test_step(epoch=epoch,test_dataloader=test_dataloader)
