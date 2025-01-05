@@ -144,7 +144,7 @@ To understand the flow of the project and replicate the results, follow the note
 
 ## Dataset & References
 
-[INCLDUE Dataset](https://zenodo.org/records/4010759)
+[INCLUDE Dataset](https://zenodo.org/records/4010759)
 
 [INCLUDE SUBSET 50](/dataset/ISL_SUBSET_50_WORDS.txt)
 
