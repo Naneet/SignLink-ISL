@@ -79,7 +79,7 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"{self.model.name}_acc={acc:.2f}_{epoch=}_real.pth")
+                }, filename=f"/saved/{self.model.name}_model=acc_{acc:.2f}_loss_{test_loss}_{epoch=}_real.pth")
     
     def train_step_pickle(self,epoch,path_list):
         self.model.train()
@@ -156,4 +156,4 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"{self.model.name}_model=acc_{acc:.2f}_loss_{test_loss}_{epoch=}_real.pth")
+                }, filename=f"/saved/{self.model.name}_model=acc_{acc:.2f}_loss_{test_loss}_{epoch=}_real.pth")
