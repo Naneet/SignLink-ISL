@@ -65,7 +65,7 @@ test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 var = input("Test Dataloader?:(y or n):")
 if var == "y" or var == "Y":
     vid, label = next(iter(train_dataloader))
-    show_sequence(vid[2], 12)
+    show_sequence(vid[2], NUM_FRAMES)
     print("label:",idx_to_word[label[2]])
     print(f"{vid.shape=}")
 
@@ -74,8 +74,8 @@ model = SignLanguageClassifier(len(word_to_idx)).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 loss_fn = nn.CrossEntropyLoss()
 
-trainer = Trainer(device=device,optimizer=optimizer,loss_fn=loss_fn,test_dataloader=test_dataloader,train_dataloader=train_dataloader,save=True)
+trainer = Trainer(device=device,optimizer=optimizer,loss_fn=loss_fn,save=True,model=model)
 
 for epoch in range(epochs):
-    trainer.train_step(epoch=epoch)
-    trainer.test_step(epoch=epoch)
+    trainer.train_step(epoch=epoch,train_dataloader=train_dataloader)
+    trainer.test_step(epoch=epoch,test_dataloader=test_dataloader)

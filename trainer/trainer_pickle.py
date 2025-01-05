@@ -3,12 +3,13 @@ from torch.amp import autocast, GradScaler
 from utils.save_load_model import save_checkpoint
 from utils.pickle import read_pickle
 
-class Trainer:
-    def __init__(self,model,device,optimizer,loss_fn,train_path_list,test_path_list,save=False):
+class Trainer_Pickle:
+    def __init__(self,model,device,optimizer,loss_fn,scheduler,train_path_list,test_path_list,save=False):
         self.device = device
         self.scaler = GradScaler(device)  # Initialize GradScaler
         self.optimizer = optimizer
         self.loss_fn = loss_fn
+        self.scheduler = scheduler
         self.train_path_list = train_path_list
         self.test_path_list = test_path_list
         self.model = model
@@ -22,12 +23,12 @@ class Trainer:
         
 
         for path in self.train_path_list:
-            tensor = read_pickle(path=path)
-            X = tensor['video'].to(self.device)
-            y = tensor['label'].to(self.device)
+            X, y = read_pickle(path=path)
+            X = X.to(self.device)
+            y = y.to(self.device)
 
             # Automatic Mixed Precision (AMP)
-            with autocast(device_type='cuda', enabled=self.device.type == 'cuda'):
+            with autocast('cuda'):
                 y_pred = self.model(X)
                 loss = self.loss_fn(y_pred, y)
                 train_loss += loss.item()
@@ -53,6 +54,10 @@ class Trainer:
         train_loss = train_loss / len(self.train_path_list)
         print(f"Epoch: {epoch} | Train Loss: {train_loss:.4f} | Accuracy: {acc:.2f}")
 
+        # Step scheduler if ReduceLROnPlateau
+        if isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+            self.scheduler.step(train_loss)  # Use validation loss as the metric
+
 
     def test_step_pickle(self, epoch):
         self.model.eval()
@@ -62,9 +67,9 @@ class Trainer:
 
         with torch.no_grad():
             for path in self.test_path_list:
-                tensor = read_pickle(path=path)
-                X = tensor['video'].to(self.device)
-                y = tensor['label'].to(self.device)
+                X = read_pickle(path=path)
+                X = X.to(self.device)
+                y = y.to(self.device)
 
                 # Use AMP for inference
                 with autocast('cuda'):
@@ -80,8 +85,12 @@ class Trainer:
             acc = total_correct * 100 / total_samples
             test_loss = test_loss / len(self.test_path_list)
             print(f"Epoch: {epoch} | Test Loss: {test_loss:.4f} | Accuracy: {acc:.2f}")
-            print("************************")
-            
+
+
+            # Step scheduler if ReduceLROnPlateau
+            if isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                self.scheduler.step(test_loss)  # Use validation loss as the metric
+
             if self.save:
                 print(f"Saving model at epoch {epoch}...")
                 save_checkpoint({
@@ -89,7 +98,9 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"model={acc:.2f}_{epoch=}_real.pth")
+                }, filename=f"/saved/{self.model.name}_model=acc_{acc:.2f}_loss_{test_loss}_{epoch=}_real.pth")
+
+            print("************************")
         
     
         
