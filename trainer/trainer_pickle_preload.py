@@ -3,12 +3,13 @@ from torch.amp import autocast, GradScaler
 from utils.save_load_model import save_checkpoint
 from utils.pickle import read_pickle
 
-class Trainer:
-    def __init__(self, model, device, optimizer, loss_fn, save=False):
+class Trainer_Pickle_Preload:
+    def __init__(self, model, device, optimizer, loss_fn, scheduler, save=False):
         self.device = device
         self.scaler = GradScaler()  # Automatic Mixed Precision
         self.optimizer = optimizer
         self.loss_fn = loss_fn
+        self.scheduler = scheduler
         self.model = model
         self.save = save
 
@@ -38,6 +39,10 @@ class Trainer:
         train_loss /= len(preloaded_data)
         print(f"Epoch: {epoch} | Train Loss: {train_loss:.4f} | Accuracy: {acc:.2f}")
 
+        # Step scheduler if ReduceLROnPlateau
+        if isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+            self.scheduler.step(train_loss)  # Use validation loss as the metric
+
     def test_step_pickle(self, epoch,preloaded_data):
         self.model.eval()
         test_loss, acc = 0, 0
@@ -61,6 +66,10 @@ class Trainer:
             test_loss = test_loss / len(preloaded_data)
             print(f"Epoch: {epoch} | Test Loss: {test_loss:.4f} | Accuracy: {acc:.2f}")
 
+            # Step scheduler if ReduceLROnPlateau
+            if isinstance(self.scheduler, torch.optim.lr_scheduler.ReduceLROnPlateau):
+                self.scheduler.step(test_loss)  # Use validation loss as the metric
+
             if self.save:
                 print(f"Saving model at epoch {epoch}...")
                 save_checkpoint({
@@ -68,6 +77,6 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"{self.model.name}_acc={acc:.2f}_{epoch=}_real.pth")
+                }, filename=f"/saved/{self.model.name}_model=acc_{acc:.2f}_loss_{test_loss}_{epoch=}_real.pth")
 
             print("************************")

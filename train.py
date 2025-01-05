@@ -65,7 +65,7 @@ test_dataloader = DataLoader(test_dataset, batch_size=batch_size, shuffle=True)
 var = input("Test Dataloader?:(y or n):")
 if var == "y" or var == "Y":
     vid, label = next(iter(train_dataloader))
-    show_sequence(vid[2], 12)
+    show_sequence(vid[2], NUM_FRAMES)
     print("label:",idx_to_word[label[2]])
     print(f"{vid.shape=}")
 
