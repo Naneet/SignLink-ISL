@@ -39,4 +39,3 @@ def preload_tensors(path_list, device):
         video, label = tensor['video'].to(device), tensor['label'].to(device)
         data.append((video, label))
     return data
-
