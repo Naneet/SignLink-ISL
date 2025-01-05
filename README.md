@@ -9,7 +9,7 @@ SignLink-ISL is a machine learning-based system designed to recognize and interp
 - [Model Performance](#model-performance)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Dataset & References](#dataset--references)
 
 ## Introduction
 
@@ -74,6 +74,67 @@ Transformers were also used to explore their capabilities. While they showed pro
 4. Hyperparameter Tuning: Further tuning transformer hyperparameters could unlock better performance.
 
 ## Model Performance
+
+We evaluated our models on both the INCLUDE SUBSET 50 and the complete INCLUDE dataset. Below are the detailed performance metrics:
+
+### INCLUDE SUBSET 50
+
+1. With Horizontal Flip (30% Probability) only
+   - r3d_18: Accuracy: 89.18%
+   - ResNet18 + GRU: Accuracy: 88.74%
+2. With All Augmentations
+   - r3d_18: Accuracy: 79.44%
+
+### Complete INCLUDE Dataset
+
+We trained the **r3d_18** model and achieved the following metrics:
+
+**Accuracy: 89.51%**
+
+Micro Metrics:
+ - F1 Score: 0.8951
+ - Precision: 0.8951
+ - Recall: 0.8951
+
+Macro Metrics:
+ - F1 Score: 0.8895
+ - Precision: 0.9069
+ - Recall: 0.8934
+
+Weighted Metrics:
+ - F1 Score: 0.8911
+ - Precision: 0.9071
+ - Recall: 0.8951
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Naneet/SignLink-ISL.git
+   ```
+
+2. Navigate to the project directory
+   ```
+   cd SignLink-ISL
+   ```
+
+3. Install the required dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+
+## Dataset & References
+
+
+
+
+
+
+
+
 
 
 
