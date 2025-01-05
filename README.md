@@ -139,6 +139,8 @@ To understand the flow of the project and replicate the results, follow the note
    - Covers the training process using different models like r3d_18 and ResNet18 + GRU/LSTM.
    - Training configurations (e.g., hyperparameters, loss functions, optimizers).
    - Model evaluation metrics and saving trained models.
+  
+🚨🚨 We will also be creating docs for it soon for better understanding 🚨🚨 :)
 
 ## Dataset & References
 
