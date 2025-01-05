@@ -9,7 +9,7 @@ SignLink-ISL is a machine learning-based system designed to recognize and interp
 - [Model Performance](#model-performance)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Dataset & References](#references)
+- [Dataset & References](#dataset-&-references)
 
 ## Introduction
 
