@@ -4,17 +4,15 @@ from utils.save_load_model import save_checkpoint
 from utils.pickle import read_pickle
 
 class Trainer:
-    def __init__(self,model,device,optimizer,loss_fn,train_dataloader,test_dataloader,save=False):
+    def __init__(self,model,device,optimizer,loss_fn,save=False):
         self.device = device
         self.scaler = GradScaler(device)  # Initialize GradScaler
         self.optimizer = optimizer
         self.loss_fn = loss_fn
-        self.train_dataloader = train_dataloader
-        self.test_dataloader = test_dataloader
         self.model = model
         self.save = save
 
-    def train_step(self,epoch):
+    def train_step(self,epoch,train_dataloader):
         self.model.train()
         train_loss, acc = 0, 0
         total_correct = 0
@@ -48,7 +46,7 @@ class Trainer:
         print(f"Epoch: {epoch} | Train Loss: {train_loss:.4f} | Accuracy: {acc:.2f}")
 
 
-    def test_step(self, epoch):
+    def test_step(self, epoch,test_dataloader):
         self.model.eval()
         test_loss, acc = 0, 0
         total_correct = 0
