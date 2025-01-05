@@ -18,7 +18,7 @@ class Trainer:
         total_correct = 0
         total_samples = 0
 
-        for X, y in self.train_dataloader:
+        for X, y in train_dataloader:
             X, y = X.to(self.device), y.to(self.device)
 
             # Automatic Mixed Precision (AMP)
@@ -42,7 +42,7 @@ class Trainer:
             total_samples += y.size(0)
 
         acc = total_correct * 100 / total_samples
-        train_loss = train_loss / len(self.train_dataloader)
+        train_loss = train_loss / len(train_dataloader)
         print(f"Epoch: {epoch} | Train Loss: {train_loss:.4f} | Accuracy: {acc:.2f}")
 
 
@@ -53,7 +53,7 @@ class Trainer:
         total_samples = 0
 
         with torch.no_grad():
-            for X, y in self.test_dataloader:
+            for X, y in test_dataloader:
                 X, y = X.to(self.device), y.to(self.device)
 
                 # Use AMP for inference
@@ -68,7 +68,7 @@ class Trainer:
                 total_samples += y.size(0)
 
             acc = total_correct * 100 / total_samples
-            test_loss = test_loss / len(self.test_dataloader)
+            test_loss = test_loss / len(test_dataloader)
             print(f"Epoch: {epoch} | Test Loss: {test_loss:.4f} | Accuracy: {acc:.2f}")
             print("************************")
             
