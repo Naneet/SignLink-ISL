@@ -9,7 +9,7 @@ SignLink-ISL is a machine learning-based system designed to recognize and interp
 - [Model Performance](#model-performance)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Dataset & References](#references)
 
 ## Introduction
 
@@ -105,6 +105,37 @@ Weighted Metrics:
  - F1 Score: 0.8911
  - Precision: 0.9071
  - Recall: 0.8951
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Naneet/SignLink-ISL.git
+   ```
+
+2. Navigate to the project directory
+   ```
+   cd SignLink-ISL
+   ```
+
+3. Install the required dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+
+## Dataset & References
+
+
+
+
+
+
+
+
+
 
 
 
