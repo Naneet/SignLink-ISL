@@ -91,9 +91,9 @@ class Trainer:
         
 
         for path in path_list:
-            tensor = read_pickle(path=path)
-            X = tensor['video'].to(self.device)
-            y = tensor['label'].to(self.device)
+            X,y = read_pickle(path=path)
+            X.to(self.device)
+            y.to(self.device)
 
             # Automatic Mixed Precision (AMP)
             with autocast(device_type='cuda', enabled=self.device.type == 'cuda'):
@@ -131,9 +131,9 @@ class Trainer:
 
         with torch.no_grad():
             for path in path_list:
-                tensor = read_pickle(path=path)
-                X = tensor['video'].to(self.device)
-                y = tensor['label'].to(self.device)
+                X,y = read_pickle(path=path)
+                X.to(self.device)
+                y.to(self.device)
 
                 # Use AMP for inference
                 with autocast('cuda'):
@@ -158,8 +158,4 @@ class Trainer:
                     'model_state_dict': self.model.state_dict(),
                     'optimizer_state_dict': self.optimizer.state_dict(),
                     'best_metric': acc
-                }, filename=f"{self.model.name}_model={acc:.2f}_{epoch=}_real.pth")
-        
-    
-        
-    
+                }, filename=f"{self.model.name}_model=acc_{acc:.2f}_loss_{test_loss}_{epoch=}_real.pth")
