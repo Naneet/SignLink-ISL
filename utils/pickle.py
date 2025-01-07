@@ -88,7 +88,7 @@ def read_pickle(path : str):
     temp = torch.load(path)
     return temp['video'], temp['label']
 
-def pickle_files_path_list(path) -> list:
+def get_all_file_paths(path) -> list:
     """
     Recursively collects all file paths in a specified directory.
 
