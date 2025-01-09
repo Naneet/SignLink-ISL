@@ -13,7 +13,7 @@ import shutil
 
 from data_loader.VideoDatasetLoader import VideoDatasetLoader
 from models.Conv3D import SignLanguageClassifier
-from trainer.trainer import Trainer
+from trainers.trainer import Trainer
 from utils.save_load import save_checkpoint,load_checkpoint
 from utils.data_words import data_and_words
 from utils.show_sequence import show_sequence
@@ -74,8 +74,8 @@ model = SignLanguageClassifier(len(word_to_idx)).to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 loss_fn = nn.CrossEntropyLoss()
 
-trainer = Trainer(device=device,optimizer=optimizer,loss_fn=loss_fn,save=True,model=model)
+trainer = Trainer(device=device,optimizer=optimizer,loss_fn=loss_fn,train_dataloader=train_dataloader,test_dataloader=test_dataloader,save=True,model=model)
 
 for epoch in range(epochs):
-    trainer.train_step(epoch=epoch,train_dataloader=train_dataloader)
-    trainer.test_step(epoch=epoch,test_dataloader=test_dataloader)
+    trainer.train_step(epoch=epoch)
+    trainer.test_step(epoch=epoch)
