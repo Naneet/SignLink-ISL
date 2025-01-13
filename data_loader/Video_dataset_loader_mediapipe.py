@@ -35,7 +35,7 @@ def data_and_words(path):
 
 
 
-class VideoDataset(Dataset):
+class VideoDataset_Mediapipe(Dataset):
     def __init__(self, data, temp_data_folder, NUM_FRAMES=10, transform_frame=None,transform_video=None, video_fps=25, resolution='1920:1080'):
         self.data = data  # It should be a list of tuples where data[0] is the path to the video and data[1] is the label
 
