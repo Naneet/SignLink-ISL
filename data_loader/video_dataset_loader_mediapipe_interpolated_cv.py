@@ -14,7 +14,7 @@ import os
 
 # tag : v5.2
 
-class VideoDataset(Dataset):
+class VideoDataset_mp_cv(Dataset):
     def __init__(self, data, temp_data_folder, NUM_FRAMES=10, transform_frame=None, video_fps=25, resolution='1920:1080', flip_prob=30, resize=300, crop=640):
         self.data = data  # It should be a list of tuples where data[0] is the path to the video and data[1] is the label
 
