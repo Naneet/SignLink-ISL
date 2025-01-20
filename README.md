@@ -50,7 +50,7 @@ Due to the large dataset size and slow speed of Mediapipe, we pickled the proces
     - Horizontal flip (100% probability).
     - Random crop.
     - Random rotation (-5°, 5°).
-    - Combination of horizontal flip (50%) and random rotation (-5°, 5°).
+    - Combination of horizontal flip (50%) and random crop and rotation (-5°, 5°).
 
 We used these augmented datasets combined for final training models on both INCLUDE SUBSET 50 and the complete INCLUDE dataset.
 
